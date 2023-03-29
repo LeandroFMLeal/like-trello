@@ -12,31 +12,26 @@ export interface BoardState {
 
 interface IMove {
   fromList: number;
-  toList: any;
-  from: string;
-  to: string;
+  toList: number;
+  from: number;
+  to: number;
 }
 
-const initialState: BoardState & IMove = {
+const initialState: BoardState = {
   board: data,
-  fromList: 0,
-  toList: "",
-  from: "",
-  to: "",
 };
 
 export const boardSlice = createSlice({
   name: "board",
   initialState,
   reducers: {
-    move: (
-      { fromList, toList, from, to, board },
-      action: PayloadAction<number>
-    ) => {
-      produce(board, (draft) => {
-        const dragged = draft[fromList].cards[from];
-        draft[fromList].cards.splice(from, 1);
-        draft[toList].cards.splice(to, 0, dragged);
+    move: (state, action: PayloadAction<IMove>) => {
+      const { fromList, toList, from, to } = action.payload;
+      produce(state.board, (draft) => {
+        const dragged = draft.columns[fromList].cards[from];
+
+        draft.columns[fromList].cards.splice(from, 1);
+        draft.columns[toList].cards.splice(to, 0, dragged);
       });
     },
   },

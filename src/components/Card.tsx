@@ -10,6 +10,7 @@ import { GeneralCard } from "../types/board";
 import { useDispatch } from "react-redux";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import { move } from "../redux-toolkit/boardReducer";
 
 interface ICard {
   card: GeneralCard;
@@ -18,11 +19,11 @@ interface ICard {
 
 export const Card = ({ card, listId }: ICard) => {
   const ref = useRef();
-  // const { move } = ;
   const dispatch = useDispatch();
 
   const [{ isDragging }, dragRef] = useDrag({
-    item: { type: "CARD", index, listIndex },
+    type: "CARD",
+    item: { index: card.id, listId },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -30,7 +31,7 @@ export const Card = ({ card, listId }: ICard) => {
 
   const [, dropRef] = useDrop({
     accept: "CARD",
-    hover(item: any, monitor) {
+    hover(item, monitor) {
       const draggedListIndex = item.listIndex;
       const targetListIndex = listId;
 
@@ -60,7 +61,9 @@ export const Card = ({ card, listId }: ICard) => {
         return;
       }
 
-      move(draggedListIndex, targetListIndex, draggedIndex, targetIndex);
+      dispatch(
+        move({ draggedListIndex, targetListIndex, draggedIndex, targetIndex })
+      );
 
       item.index = targetIndex;
       item.listIndex = targetListIndex;
