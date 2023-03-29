@@ -59,17 +59,20 @@ module.exports = {
         '900': '#313131',
       },
     },
-    fontSize: {
-      'tiny': ['0.75rem', {
-        lineHeight: '1.05rem',
-        letterSpacing: '-0.02em',
-        fontWeight: '400',
-      }],
-      'xsm': ['0.65rem', {
-        lineHeight: '1rem',
-        letterSpacing: '-0.02em',
-        fontWeight: '400',
-      }],
+
+    extend: {
+      fontSize: {
+        'tiny': ['0.75rem', {
+          lineHeight: '1.05rem',
+          letterSpacing: '-0.02em',
+          fontWeight: '400',
+        }],
+        'xsm': ['0.65rem', {
+          lineHeight: '1rem',
+          letterSpacing: '-0.02em',
+          fontWeight: '400',
+        }],
+      }
     }
   },
   plugins: [
