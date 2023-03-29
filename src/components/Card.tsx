@@ -7,11 +7,7 @@ import {
 import { BiTimeFive } from "react-icons/bi";
 import { GiReceiveMoney } from "react-icons/gi";
 import { GeneralCard } from "../types/board";
-import { useDispatch } from "react-redux";
 import { useRef } from "react";
-import { useDrag, useDrop } from "react-dnd";
-import { move } from "../redux-toolkit/boardReducer";
-import { CARD } from "../constants/board";
 import { useCardDragNDrop } from "../hooks/useCardDragNDrop";
 
 interface ICard {

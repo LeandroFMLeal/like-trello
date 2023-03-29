@@ -7,7 +7,7 @@ export const Board = () => {
   const board: IBoard = useSelector((state: RootState) => state.board);
 
   return (
-    <div className="flex  flex-row justify-center gap-20">
+    <div className="flex flex-row justify-center gap-20 pt-10">
       {board &&
         board.columns.map((column, index) => {
           return (

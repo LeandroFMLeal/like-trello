@@ -1,6 +1,5 @@
 import { GeneralCard } from "../types/board";
 import { Card } from "./Card";
-import { InviCard } from "./InviCard";
 
 interface IColumn {
   id: number;
