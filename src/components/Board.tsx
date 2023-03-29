@@ -1,27 +1,25 @@
-import { getBoard } from "../services/api";
+import { useSelector } from "react-redux";
 import { Column } from "./Column";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { DndProvider } from "react-dnd";
-
-const data = getBoard();
+import { RootState } from "../redux-toolkit/store";
+import { Board as IBoard } from "../types/board";
 
 export const Board = () => {
-  const { columns } = data;
+  const board: IBoard = useSelector((state: RootState) => state.board);
+
   return (
-    <div className="flex  flex-row">
-      <DndProvider backend={HTML5Backend}>
-        {columns &&
-          columns.map((column) => {
-            return (
-              <Column
-                title={column.title.toUpperCase()}
-                key={column.id}
-                id={column.id}
-                cards={column.cards}
-              />
-            );
-          })}
-      </DndProvider>
+    <div className="flex  flex-row justify-center gap-20">
+      {board &&
+        board.columns.map((column, index) => {
+          return (
+            <Column
+              title={column.title.toUpperCase()}
+              key={column.id}
+              index={index}
+              id={column.id}
+              cards={column.cards}
+            />
+          );
+        })}
     </div>
   );
 };

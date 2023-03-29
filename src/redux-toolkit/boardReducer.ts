@@ -6,10 +6,6 @@ import produce from "immer";
 
 const data = getBoard();
 
-export interface BoardState {
-  board: Board;
-}
-
 interface IMove {
   fromList: number;
   toList: number;
@@ -17,8 +13,9 @@ interface IMove {
   to: number;
 }
 
-const initialState: BoardState = {
-  board: data,
+const initialState: Board = {
+  name: data.name,
+  columns: data.columns,
 };
 
 export const boardSlice = createSlice({
@@ -27,12 +24,14 @@ export const boardSlice = createSlice({
   reducers: {
     move: (state, action: PayloadAction<IMove>) => {
       const { fromList, toList, from, to } = action.payload;
-      produce(state.board, (draft) => {
-        const dragged = draft.columns[fromList].cards[from];
+      const newColumns = produce(state, ({ columns: draft }) => {
+        const dragged = draft[fromList].cards[from];
 
-        draft.columns[fromList].cards.splice(from, 1);
-        draft.columns[toList].cards.splice(to, 0, dragged);
+        draft[fromList].cards.splice(from, 1);
+        draft[toList].cards.splice(to, 0, dragged);
       });
+
+      state.columns = newColumns.columns;
     },
   },
 });

@@ -1,5 +1,5 @@
 export interface Board {
-  board: string;
+  name: string;
   columns: Column[];
 }
 
@@ -21,5 +21,5 @@ export interface GeneralCard {
   hasTransaction: boolean;
   ticket: string;
   labels: string[];
-  editable: boolean;
+  canDrag: boolean;
 }
